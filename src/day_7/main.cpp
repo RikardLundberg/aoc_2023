@@ -65,11 +65,11 @@ void readInput()
 int main(void)
 {
     readInput();
-    firstStar();
+    //firstStar(); don't want to redo read ... 
     secondStar();
 }
 
-void firstStar()
+void secondStar()
 {
     long long total = 0;
     int rank = 1;
@@ -89,8 +89,4 @@ void firstStar()
         total += fiveKinds[i].GetBid() * rank++;
 
     cout << "1st : " << total;
-}
-
-void secondStar()
-{
 }
