@@ -85,17 +85,11 @@ void firstStar()
     for (int i = 0; i < seeds.size(); i++)
     {
         vector<long long> path;
-        // vector<long long> possibilites;
         long long currentPlantThing = seeds[i];
-        // possibilites.push_back(seeds[i]);
         for (int j = 0; j < maps.size(); j++)
         {
-            // vector<long long> newPossibilities;
-            // for(long long possibility : possibilites)
-            //{
             for (mapSegment seg : maps[j].segments)
             {
-                // newPossibilities.push_back(seg.Translate(possibility));
                 long long potentialMatch = seg.Translate(currentPlantThing);
                 if (potentialMatch != currentPlantThing) {
                     currentPlantThing = potentialMatch;
@@ -103,10 +97,6 @@ void firstStar()
                 }
             }
             path.push_back(currentPlantThing);
-            //}
-            // possibilites.clear();
-            // for(long long possibility : newPossibilities)
-            //    possibilites.push_back(possibility);
         }
         if (lowestLocation == -1 || currentPlantThing < lowestLocation)
             lowestLocation = currentPlantThing;
@@ -117,4 +107,6 @@ void firstStar()
 
 void secondStar()
 {
+    // sort possible locations from lowest to highest, 
+    // check backwards if correspond to any seed
 }
