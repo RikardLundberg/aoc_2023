@@ -12,6 +12,7 @@ struct galaxy {
 };
 
 vector<int> colCost;
+vector<int> rowCost;
 vector<string> universe;
 vector<galaxy> galaxies;
 
@@ -23,7 +24,9 @@ void readInput()
 	while (getline(infile, line))
 	{
 		while (colCost.size() < line.size())
-			colCost.push_back(2);
+			colCost.push_back(1000000);
+		while (rowCost.size() < line.size())
+			rowCost.push_back(1000000);
 
 		bool allDots = true;
 		for (int i = 0; i < line.size(); i++)
@@ -38,19 +41,24 @@ void readInput()
 			}
 		}
 		universe.push_back(line);
-		if (allDots)
-			universe.push_back(line);
+		if (!allDots)
+			rowCost[universe.size() - 1] = 1;
 	}
 }
 
-void firstStar()
+void starSeeking()
 {
 	long long total = 0;
 	for (int i = 0; i < galaxies.size(); i++)
 	{
 		for (int j = i; j < galaxies.size(); j++)
 		{
-			long pairDist = abs(galaxies[j].y - galaxies[i].y);
+			long long pairDist = 0;
+			int startY = min(galaxies[i].y, galaxies[j].y);
+			int endY = max(galaxies[i].y, galaxies[j].y);
+			for (int y = startY; y < endY; y++)
+				pairDist += rowCost[y];
+
 			int start = min(galaxies[i].x, galaxies[j].x);
 			int end = max(galaxies[i].x, galaxies[j].x);
 			for (int x = start; x < end; x++)
@@ -65,5 +73,5 @@ void firstStar()
 int main()
 {
 	readInput();
-	firstStar();
+	starSeeking();
 }
